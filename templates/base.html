@@ -1,0 +1,30 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link  href="{% static 'images/kingnzelogo.jpg' %}" rel="shortcut icon" type="img/x-icon"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap' %}" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+    <title>
+        {% block title %}
+          
+        {% endblock title %}
+    </title>
+  </head>
+  <body>
+    {% include '_nav.html' %}
+    
+    {% block content %}
+
+    {% endblock content %}
+
+    {% include '_footer.html' %}
+  </body>
+</html>

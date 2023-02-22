@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+{{ myproperty.title }}
+{% endblock title %}
+
+{% block content %}
+<section class="kinging-about-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
+        <div class="container pt-lg-5 py-5">
+        </div>
+    </div>
+</section>
+<section class="kinging-breadcrumb">
+    <div class="container">
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span>{{ myproperty.title }}</li>
+        </ul>
+    </div>
+</section>
+<section class="kinging-blog post-content py-5">
+    <div class="container py-lg-4 py-md-3 py-2">
+        {% if myproperty %}
+        <div class="inner mb-4">
+        </div>
+        <div class="post-content">
+            <h2 class="title-single">{{ myproperty.title }}</h2>
+        </div>
+        <div class="blo-singl mb-4">
+            <ul class="blog-single-author-date align-items-center">
+                <li>
+                    <p>{{ myproperty.address }}</p>
+                </li>
+                <li><span class="fa fa-bed"></span> {{ myproperty.bedrooms }} Beds</li>
+                <li><span class="fa fa-bath"></span> {{ myproperty.bathrooms }} Baths</li>
+                <li><span class="fa fa-share-square-o"></span> {{ myproperty.sqft }} sqrft</li>
+            </ul>
+            <ul class="share-post">
+                <a style="color: var(--heading-color);" href="#url" class="cost-estate m-o">{{ myproperty.RentOrBuy }}: ₦ {{ myproperty.price | intcomma }}</a>
+            </ul>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-8 kinging-news">
+                <div class="blog-single-post">
+                    <div class="single-post-image mb-5">
+                        <div class="owl-blog owl-carousel owl-theme">
+                            <div class="item">
+                                <div class="card">
+                                    <img src="{{myproperty.photo_main.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_1 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_1.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_2 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_2.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_3 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_3.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_4 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_4.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_5 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_5.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_6 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_6.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_7 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_7.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_8 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_8.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="item">
+                                {% if myproperty.photo_9 %}
+                                <div class="card">
+                                    <img src="{{myproperty.photo_9.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>
+
+                           
+                        </div>
+                    </div>
+
+                    <div class="single-post-content">
+                        <h3 class="post-content-title mb-3">Description</h3>
+                        <p class="mb-4">{{ myproperty.description }}</p>
+                        <div class="single-bg-white ">
+                            <h3 class="post-content-title mb-4">myproperty detail</h3>
+                            <ul class="details-list ">
+                                <li><strong>myproperty id :</strong> {{ myproperty.property_id }}</li>
+                                <li><strong>myproperty size :</strong> {{ myproperty.sqft }} sqft </li>
+                                <li><strong>Bedrooms :</strong> {{ myproperty.bedrooms }}</li>
+                                <li><strong>Bathrooms :</strong> {{ myproperty.bathrooms }}</li>
+                                <li><strong>Garage size :</strong> {{ myproperty.garage }} cars </li>
+                                <li><strong>Lot size :</strong> {{ myproperty.lot_size }}</li>
+                                <li><strong>myproperty Price :</strong> ₦{{ myproperty.price | intcomma }}</li>
+                                <li><strong>State :</strong> {{ myproperty.state }}</li>
+                                <li><strong>Avaiable from :</strong> {{ myproperty.date }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="sidebar-side col-lg-4 col-md-12 col-sm-12 mt-lg-0 mt-5">
+                <aside class="sidebar">
+
+                    
+                    <div class="sidebar-widget popular-posts">
+                        <div class="sidebar-title">
+                            <h4>Contact an Agent</h4>
+                        </div>
+                        {% if realtors %}
+                        {% for realtor in realtors %}
+                        <article class="post">
+                            <figure class="post-thumb"><img  src="{{ realtor.realtorphoto.url }}" class="radius-image" alt="">
+                            </figure>
+                            <div class="text mb-0"><a href="#blog-single">{{ realtor.description }}</a>
+                                <div class="post-info">{{ myproperty.realtor }}</div>
+                                <div class="post-info">{{ realtor.phone }}</div>
+                                <div class="post-info">{{ realtor.email }}</div>
+                            </div>
+                        </article>
+                        <button type="submit" class="btn btn-primary btn-style w-60" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="sidebar-widget popular-posts">
+                        <div class="sidebar-title">
+                            <h4>Top Properties</h4>
+                        </div>
+                        {% if top_properties %}
+                        {% for item in top_properties %}
+                        <article class="post">
+                            <figure class="post-thumb"><img src="{{item.photo_main.url}}" class="radius-image" alt="">
+                            </figure>
+                            <div class="text"><a href="#blog-single">{{ item.title }}</a>
+                                <div class="post-info">₦{{ item.price | intcomma }}</div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                        {% endif %}
+
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="inquiryModal" role="dialog">
+    <div  class="modal-dialog">
+        <div  class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModal">Make An Inquiry</h5>
+                
+                <button type="button" class="close" data-dismiss='modal'>
+                    <span>&times;</span>
+                </button>
+                
+            </div>
+            
+            <div  class="modal-body">
+                <form action="{% url 'contacts' %}" method="POST">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                        <input type="hidden" name="user_id" value="{{ user.id }}"> 
+                    {% else %}
+                        <input type="hidden" name="user_id" value="0">
+                    {% endif %}
+                    <input type="hidden" name="myproperty_id" value="{{ myproperty.id }}">
+                    <div class="form-group">
+                        <input type="text" name="myproperty" class="form-control" placeholder="myproperty" value="{{ myproperty.title }}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="Name" {% if user.is_authenticated %} value="{{ user.first_name }} {{ user.last_name }}" {% endif %} required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Email" {% if user.is_authenticated %} value="{{ user.email }}" {% endif %} required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="phone" class="form-control" placeholder="Phone"  {% if user.is_authenticated %} value="{{ user.phone }}" {% endif %} required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" class="form-control" placeholder="Message" ></textarea>
+                    </div>
+                    <hr>
+                    <p>Note: For Proper reverification, contact the admin before making any payment thank you.</p>
+                    <hr>
+                    <input type="submit" value="Send"  class="btn btn-outline-primary ">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

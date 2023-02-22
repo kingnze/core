@@ -1,0 +1,81 @@
+<section class="locations-1" id="locations">
+    <div class="locations py-5">
+        <div class="container py-lg-5 py-md-4 py-2">
+            <div class="heading text-center mx-auto">
+                <h3 class="title-big">Futured Properties</h3>
+            </div>
+            <div class="row pt-md-5 pt-4">
+              {% if myproperties %}
+              {% for item in myproperties %}
+                <div class="col-lg-4 col-md-6">
+                    <a href="{% url 'myproperty' item.id %}">
+                        <div class="box16">
+                            <div class="rentext-listing-category"><span>{{ item.RentOrBuy }}</span></div>
+                            <img style="height: 25rem;" class="img-fluid" src="{{item.photo_main.url}}" alt="">
+                            <div class="box-content">
+                                <h3 class="title">₦{{ item.price | intcomma }}</h3>
+                                <h3 style="font-size: large;" class="title">{{ item.title }}</h3>
+                                <span class="post">{{ item.address }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <br>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <li 
+  {% if 'topproperties' in request.path %}
+  class="nav-item active"
+  {% else %}
+  class="nav-item "
+    
+  {% endif %}
+  >
+      <a class="nav-link" href="{% url 'topproperties' %}">Futured Properties</a>
+  </li>
+
+  def topproperties(request):
+  top_properties = Top_properties.objects.order_by('-date').filter(published=True)
+  realtors = Realtor.objects.order_by('-hire_date')[:1]
+
+  paginator = Paginator(top_properties, 15)
+  page = request.GET.get('page')
+  paged_top_properties = paginator.get_page(page)
+  
+  context = {
+      'top_properties': paged_top_properties,
+      'realtors': realtors
+  }
+  return render(request,'realestate/topproperties.html',context)  
+
+def top_properties(request,top_properties_id):
+  top_properties = get_object_or_404(Top_properties, pk=top_properties_id)
+  realtors = Realtor.objects.order_by('-hire_date')[:4]
+  top_properties = Top_properties.objects.order_by('-date').filter(published=True)[:6]
+  
+  context = {
+      'top_properties': top_properties,
+      'realtors': realtors
+  }
+  return render(request,'realestate/top_properties.html',context) 
+  
+ 
+  
+  path('<int:top_properties_id>',views.top_properties,name='top_properties'),
+
+    path('topproperties',views.topproperties,name='topproperties'),
+
+    class Top_propertiesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'published', 'RentOrBuy','price', 'date', 'realtor')
+    list_display_links = ('id','RentOrBuy', 'title', 'realtor')
+    list_filter = ('realtor',)
+    list_editable = ('published',)
+    search_fields = ('title', 'decription', 'address', 'city', 'state', 'zipcode', 'price')
+    list_per_page = 5
+
+admin.site.register(Top_properties, Top_propertiesAdmin)   

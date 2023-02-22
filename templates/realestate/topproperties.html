@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Top Properties
+{% endblock title %}
+
+{% block content %}
+
+<section class="kinging-about-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
+        <div class="container pt-lg-5 py-5">
+        </div>
+    </div>
+</section>
+<section class="kinging-breadcrumb">
+    <div class="container">
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span>Top Properties</li>
+        </ul>
+    </div>
+</section>
+<section class="locations-1" id="locations">
+    <div class="locations py-5">
+        <div class="container py-lg-5 py-md-4 py-2">
+            <div class="row">
+                {% if top_properties %}
+                {% for item in top_properties %}
+                <div class="col-lg-4 col-md-6 listing-img">
+                    <a href="{% url 'myproperty' item.id %}">
+                        <div class="box16">
+                            <div class="rentext-listing-category"><span>{{ item.RentOrBuy }}</span></div>
+                            <img style="height: 23rem;" class="img-fluid" src="{{item.photo_main.url}}" alt="">
+                            <div class="box-content">
+                                <h3 class="title">₦{{ item.price | intcomma }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="listing-details blog-details align-self">
+                        <h4 class="user_title agent">
+                            <a href="{% url 'myproperty' item.id %}">{{ item.title }}</a>
+                        </h4>
+                        <!-- <p style="color: var(--heading-color)!important;" class="user_position">{{ item.address }}</p> -->
+                        <ul class="mt-1 estate-info">
+                            <li class="mb-1"></span>{{ item.address }}</li>
+                            <li><span class="fa fa-bed"></span> {{ item.bedrooms }} Bed</li>
+                            <li><span class="fa fa-shower"></span> {{ item.bathrooms }} Baths</li>
+                            <li><span class="fa fa-share-square-o"></span> {{ item.sqft }} Sqft</li>
+                        </ul>
+                        <div class="author align-items-center mt-4">
+                            {% if realtors %}
+                            {% for realtor in realtors %}
+                            <a href="" class="comment-img">
+                                <img src="{{ realtor.realtorphoto.url }}" alt="" class="img-fluid">
+                            </a>
+                            <ul class="blog-meta">
+                                <li>
+                                    <a href="#url">{{ item.realtor }}</a>
+                                </li>
+                                <li class="meta-item blog-lesson">
+                                  <span style="font-size: 14px!important;" class="meta-value">{{ realtor.description }}</span>
+                              </li>
+                              <li><span style="font-size: 13px!important;" class="fa fa-clock-o"> {{ item.date }}</span> 
+                              </li>
+                            </ul>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                {% endfor %}
+                {%else %}
+                   <div class="col-md-12">
+                     <p>No Property Available</p>
+                   </div>
+             {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                  {% if top_properties.has_other_pages %}
+                    <ul class="pagination">
+                      {% if top_properties.has_previous %}
+                          <li class="page-item">
+                            <a href="?page={{top_properties.previous_page_number}}" class="page-link">&laquo;
+                            </a>
+                          </li>
+                          {% else %}
+                          <!-- <li class="page-link disabled">
+                            <a class="page-link">&laquo;</a>
+                          </li> -->
+                      {% endif %}
+                      {% for i in top_properties.paginator.page_range %}
+                        {% if top_properties.number == i %}
+                          <li class="page-item active">
+                            <a class="page-link">{{i}}</a>
+                          </li>
+                       {% else %}
+                       <li class="page-item">
+                         <a href="?page={{i}}" class="page-link">{{i}}</a>
+                       </li>
+                     {% endif %}
+                    {% endfor %} 
+                    {% if top_properties.has_next %}
+                        <li class="page-item">
+                          <a href="?page={{top_properties.next_page_number}}" class="page-link">&raquo;
+                          </a>
+                        </li>
+                      {% else %}
+                        <!-- <li class="page-link disabled">
+                          <a class="page-link">&raquo;</a>
+                        </li> -->
+                    {% endif %}
+                  </ul>                   
+                {% endif %}
+                </div>
+              </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

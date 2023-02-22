@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Our team
+{% endblock title %}
+{% block content %}
+<section class="kinging-about-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
+        <div class="container pt-lg-5 py-5">
+        </div>
+    </div>
+</section>
+<section class="kinging-breadcrumb">
+    <div class="container">
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span>Our team</li>
+        </ul>
+    </div>
+</section>
+<section class="realtors">
+    <div class="kinging-agentsblock py-1" id="team">
+        <div class="container py-lg-5 py-md-4 py-2">
+            <h6 class="title-small text-center">Our team</h6>
+            <h3 class="title-big text-center mb-lg-5 mb-4">Meet our Agents</h3>
+            <div class="row">
+                {% if realtors %}
+                {% for realtor in realtors %}
+                <div class="col-lg-3 col-sm-6 column-item">
+                    <div class="users_box">
+                        <div class="user-avatar">
+                            <a href="#agent-single" class="avatar">
+                                <img id="profileimg" src="{{ realtor.realtorphoto.url }}" alt="" class="img-fluid w-100  radius-image">
+                            </a>
+                        </div>
+                        <div class="users_box_info">
+                            <p class="user_position">{{ realtor.description }}</p>
+                            <h4 class="user_title agent">
+                                <a href="#agent-single">{{ realtor.name }}</a>
+                            </h4>
+                            <div class="user_meta user_phone">
+                                <span class="phone-detail"> <a href="{{ realtor.phone }}">{{ realtor.phone }}</a></span>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                  {% if realtor.has_other_pages %}
+                    <ul class="pagination">
+                      {% if realtor.has_previous %}
+                          <li class="page-item">
+                            <a href="?page={{realtor.previous_page_number}}" class="page-link">&laquo;
+                            </a>
+                          </li>
+                          {% else %}
+                          <!-- <li class="page-link disabled">
+                            <a class="page-link">&laquo;</a>
+                          </li> -->
+                      {% endif %}
+                      {% for i in realtor.paginator.page_range %}
+                        {% if realtor.number == i %}
+                          <li class="page-item active">
+                            <a class="page-link">{{i}}</a>
+                          </li>
+                       {% else %}
+                       <li class="page-item">
+                         <a href="?page={{i}}" class="page-link">{{i}}</a>
+                       </li>
+                     {% endif %}
+                    {% endfor %} 
+                    {% if realtor.has_next %}
+                        <li class="page-item">
+                          <a href="?page={{realtor.next_page_number}}" class="page-link">&raquo;
+                          </a>
+                        </li>
+                      {% else %}
+                        <!-- <li class="page-link disabled">
+                          <a class="page-link">&raquo;</a>
+                        </li> -->
+                    {% endif %}
+                  </ul>                   
+                {% endif %}
+                </div>
+              </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+

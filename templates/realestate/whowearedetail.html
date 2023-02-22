@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+{{ post.title }}
+{% endblock title %}
+{% block content %}
+<section class="kinging-about-breadcrumb">
+    <div class="breadcrumb-bg breadcrumb-bg-about pt-5">
+        <div class="container pt-lg-5 py-5">
+        </div>
+    </div>
+</section>
+<section class="kinging-breadcrumb">
+    <div class="container">
+        <ul class="breadcrumbs-custom-path">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="active"><span class="fa fa-angle-right mx-2" aria-hidden="true"></span> {{ post.title }}</li>
+        </ul>
+    </div>
+</section>
+<section class="kinging-blog post-content py-5">
+    <div class="container py-lg-4 py-md-3 py-2">
+        <div class="row">
+            {% if post %}
+            <div class="col-lg-8 kinging-news">
+                <div class="blog-single-post">
+                    <div class="single-post-image mb-5">
+                        <div class="owl-blog owl-carousel owl-theme">
+                            <div class="item">
+                                <div class="card">
+                                    {% if post.leadimg %}
+                                    <img src="{{post.leadimg.url}}" class="img-fluid radius-image" alt="image">
+                                </div>
+                                {% endif %}
+                            </div>                          
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <h2 class="title-single">{{ post.title }}</h2>
+                    </div>
+                    <div class="single-post-content">
+                        <p class="mb-4">{{post.body | safe}}</p>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+            <div class="sidebar-side col-lg-4 col-md-12 col-sm-12 mt-lg-0 mt-5">
+                <aside class="sidebar">
+
+                    <!-- Popular Post Widget-->
+                    <div class="sidebar-widget popular-posts">
+                        <div class="sidebar-title">
+                            <h4>Top Properties</h4>
+                        </div>
+                        {% if top_properties %}
+                        {% for item in top_properties %}
+                        <article class="post">
+                            <figure class="post-thumb"><img src="{{item.photo_main.url}}" class="radius-image" alt="">
+                            </figure>
+                            <div class="text"><a href="#blog-single">{{ item.title }}</a>
+                                <div class="post-info">₦{{ item.price | intcomma }}</div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
